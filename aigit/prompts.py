@@ -107,17 +107,13 @@ Provide your response in this EXACT format:
 ## Summary
 [2-3 sentence overview of what functionality was added/changed/fixed]
 
-## Files Changed
-- path/to/file1.ext - [brief description of major change]
-- path/to/file2.ext - [brief description of major change]
-[list all changed files with one line each]
-
 ## Key Changes
 - [bullet point of important change 1]
 - [bullet point of important change 2]
+- [bullet point of important change 3]
 [max 3-4 key points]
 
-Keep it SHORT and focused on WHAT was done, not HOW it was implemented."""
+Keep it SHORT and focused on WHAT was done, not HOW it was implemented. Do NOT list files."""
 
 
 def get_commit_prompt(diff: str, conventional: bool = True, hint: str = None) -> str:
