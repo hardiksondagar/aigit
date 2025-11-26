@@ -4,22 +4,40 @@ Get started with aigit in 5 minutes!
 
 ## 1. Install
 
+**Recommended:** Install globally with pipx (makes `aigit` available everywhere):
+
 ```bash
+# Install pipx (if you don't have it)
+brew install pipx  # macOS/Linux
+
+# Install aigit
+pipx install git+https://github.com/hardiksondagar/aigit.git
+```
+
+**Alternative:** For development or local install:
+
+```bash
+git clone https://github.com/hardiksondagar/aigit.git
 cd aigit
 pip install -e .
 ```
 
-## 2. Configure
+## 2. Get API Keys
+
+1. **OpenAI API Key**: [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+2. **GitHub Token**: [github.com/settings/tokens](https://github.com/settings/tokens) (check `repo` scope)
+
+## 3. Configure
 
 ```bash
 # Set your OpenAI API key
 aigit config set openai_api_key sk-your-key-here
 
-# Set your GitHub token (get one from https://github.com/settings/tokens)
+# Set your GitHub token
 aigit config set github_token ghp_your-token-here
 ```
 
-## 3. Try it out
+## 4. Try it out
 
 ### Smart Commits
 

@@ -1,6 +1,41 @@
 # aigit
 
-AI-powered Git CLI tool for smart commits, branches, and PRs.
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub](https://img.shields.io/badge/GitHub-hardiksondagar%2Faigit-blue)](https://github.com/hardiksondagar/aigit)
+
+> AI-powered Git CLI tool for smart commits, branches, and PRs
+
+Stop writing commit messages. Stop thinking about branch names. Stop writing PR descriptions. Let AI handle it.
+
+## Why aigit?
+
+- ⚡ **Save time**: No more staring at `git commit -m "..."`
+- 🎯 **Better quality**: AI writes clear, conventional commit messages
+- 🤖 **Consistent**: Every commit follows best practices
+- 🚀 **Boost productivity**: From idea to PR in seconds
+
+## Quick Demo
+
+```bash
+# Make some changes
+$ git add .
+
+# Let AI write your commit message
+$ aigit commit
+
+Generating commit message...
+
+╭─ Generated Commit Message ────────────────────╮
+│ feat: add user authentication with JWT        │
+│                                                │
+│ Implement JWT-based authentication system     │
+│ with login and token refresh endpoints        │
+╰────────────────────────────────────────────────╯
+
+Action (commit/edit/cancel): commit
+✓ Committed as a1b2c3d
+```
 
 ## Features
 
@@ -12,14 +47,47 @@ AI-powered Git CLI tool for smart commits, branches, and PRs.
 
 ## Installation
 
+### Recommended: Using pipx (global CLI tool)
+
+[pipx](https://pipx.pypa.io/) installs the CLI tool globally while keeping dependencies isolated:
+
+```bash
+# Install pipx if you don't have it
+brew install pipx  # macOS/Linux
+# or: python3 -m pip install --user pipx
+
+# Install aigit
+pipx install git+https://github.com/hardiksondagar/aigit.git
+
+# That's it! aigit is now available globally
+aigit --help
+```
+
+### Alternative: Using pip
+
 ```bash
 # Clone and install
-git clone <your-repo-url>
+git clone https://github.com/hardiksondagar/aigit.git
 cd aigit
+pip install .
+
+# Or for development (editable mode)
 pip install -e .
 ```
 
+> **Note:** If using pip, you may need to add `~/.local/bin` to your PATH.
+
 ## Setup
+
+### Get Your API Keys
+
+1. **OpenAI API Key**: Get yours at [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+   - You'll need credits (~$5 for thousands of commits)
+
+2. **GitHub Token**: Create one at [github.com/settings/tokens](https://github.com/settings/tokens)
+   - Check the `repo` scope for PR creation
+
+### Configure aigit
 
 ```bash
 # Set your API keys
@@ -30,6 +98,12 @@ aigit config set github_token ghp_...
 aigit config set model gpt-4o              # Default: gpt-4o-mini
 aigit config set conventional_commits true # Default: true
 aigit config set interactive true          # Default: true
+```
+
+Or use environment variables:
+```bash
+export OPENAI_API_KEY=sk-...
+export GITHUB_TOKEN=ghp_...
 ```
 
 ## Usage
@@ -132,10 +206,29 @@ Available options:
 
 - Python 3.10+
 - Git
-- OpenAI API key
-- GitHub token (for PR features)
+- [OpenAI API key](https://platform.openai.com/api-keys)
+- [GitHub personal access token](https://github.com/settings/tokens) (for PR features)
+  - Needs `repo` scope for creating PRs
+
+## Contributing
+
+Contributions welcome! Feel free to:
+- 🐛 [Report bugs](https://github.com/hardiksondagar/aigit/issues)
+- 💡 [Suggest features](https://github.com/hardiksondagar/aigit/issues)
+- 🔧 [Submit pull requests](https://github.com/hardiksondagar/aigit/pulls)
+
+Check out [INSTALL.md](INSTALL.md) for development setup instructions.
 
 ## License
 
 MIT
+
+## Links
+
+- **GitHub**: [github.com/hardiksondagar/aigit](https://github.com/hardiksondagar/aigit)
+- **Issues**: [Report a bug or request a feature](https://github.com/hardiksondagar/aigit/issues)
+
+---
+
+Made with ❤️ by developers who hate writing commit messages
 
