@@ -93,7 +93,7 @@ Be concise and actionable. Focus on the most important issues."""
 
 EXPLAIN_PROMPT = """You are an expert at explaining code changes in plain English.
 
-Analyze the following git diff and explain what changed.
+Analyze the following git diff and provide a brief, structured explanation.
 
 {context}
 
@@ -102,12 +102,22 @@ Git diff:
 {diff}
 ```
 
-Provide a clear, human-readable explanation of:
-1. What was changed (high-level summary)
-2. Why it might have been changed (infer from context)
-3. Key details worth noting
+Provide your response in this EXACT format:
 
-Be concise but thorough. Use bullet points for clarity."""
+## Summary
+[2-3 sentence overview of what functionality was added/changed/fixed]
+
+## Files Changed
+- path/to/file1.ext - [brief description of major change]
+- path/to/file2.ext - [brief description of major change]
+[list all changed files with one line each]
+
+## Key Changes
+- [bullet point of important change 1]
+- [bullet point of important change 2]
+[max 3-4 key points]
+
+Keep it SHORT and focused on WHAT was done, not HOW it was implemented."""
 
 
 def get_commit_prompt(diff: str, conventional: bool = True, hint: str = None) -> str:
