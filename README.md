@@ -210,6 +210,14 @@ Available options:
 - [GitHub personal access token](https://github.com/settings/tokens) (for PR features)
   - Needs `repo` scope for creating PRs
 
+## Roadmap
+
+Check out [ROADMAP.md](ROADMAP.md) for upcoming features including:
+- 🎯 **Branch Context** - Living context file for AI editors (v0.2.0)
+- 📝 **Changelog Generation** - Auto-generate changelogs (v0.3.0)
+- 🔌 **Multi-Provider** - Claude, Ollama, Gemini support (v0.4.0)
+- 👥 **Team Features** - Custom templates, GitLab support (v0.5.0)
+
 ## Contributing
 
 Contributions welcome! Feel free to:
@@ -217,7 +225,7 @@ Contributions welcome! Feel free to:
 - 💡 [Suggest features](https://github.com/hardiksondagar/aigit/issues)
 - 🔧 [Submit pull requests](https://github.com/hardiksondagar/aigit/pulls)
 
-Check out [INSTALL.md](INSTALL.md) for development setup instructions.
+Check out [INSTALL.md](INSTALL.md) for development setup and [ROADMAP.md](ROADMAP.md) for feature plans.
 
 ## License
 
