@@ -89,6 +89,8 @@ pip install -e .
 
 ### Configure aigit
 
+**Using OpenAI (default):**
+
 ```bash
 # Set your API keys
 aigit config set openai_api_key sk-...
@@ -105,6 +107,57 @@ Or use environment variables:
 export OPENAI_API_KEY=sk-...
 export GITHUB_TOKEN=ghp_...
 ```
+
+### Alternative AI Providers
+
+aigit supports multiple AI providers through OpenAI-compatible APIs:
+
+**Ollama (local models):**
+
+```bash
+aigit config set provider ollama
+aigit config set model llama3.2    # or mistral, codellama, etc.
+# No API key needed!
+```
+
+**Llama.cpp server:**
+
+```bash
+aigit config set provider llamacpp
+aigit config set model local-model
+```
+
+**vLLM:**
+
+```bash
+aigit config set provider vllm
+aigit config set model meta-llama/Meta-Llama-3-8B
+```
+
+**OpenRouter:**
+
+```bash
+aigit config set provider openrouter
+aigit config set openai_api_key sk-or-v1-...
+aigit config set model anthropic/claude-3.5-sonnet
+```
+
+**Custom endpoint:**
+
+```bash
+aigit config set provider custom
+aigit config set base_url http://your-api-endpoint/v1
+aigit config set openai_api_key your-key-if-needed
+aigit config set model your-model-name
+```
+
+**Provider default URLs:**
+- Ollama: `http://localhost:11434/v1`
+- Llama.cpp: `http://localhost:8080/v1`
+- vLLM: `http://localhost:8000/v1`
+- OpenRouter: `https://openrouter.ai/api/v1`
+
+> **Note:** For Ollama, Llama.cpp, and vLLM, no API key is required. Make sure your local server is running before using aigit.
 
 ## Usage
 
@@ -197,7 +250,10 @@ Configuration is stored in `~/.config/aigit/config.toml`
 Available options:
 - `openai_api_key`: OpenAI API key
 - `github_token`: GitHub personal access token
-- `model`: OpenAI model to use (default: `gpt-4o-mini`)
+- `model`: Model to use (default: `gpt-4o-mini`)
+- `provider`: AI provider (default: `openai`)
+  - Options: `openai`, `ollama`, `llamacpp`, `vllm`, `openrouter`, `custom`
+- `base_url`: Custom API base URL (overrides provider default)
 - `conventional_commits`: Use conventional commits format (default: `true`)
 - `auto_stage`: Auto-stage all changes (default: `false`)
 - `interactive`: Show interactive prompts (default: `true`)
@@ -206,7 +262,13 @@ Available options:
 
 - Python 3.10+
 - Git
-- [OpenAI API key](https://platform.openai.com/api-keys)
+- One of the following AI providers:
+  - [OpenAI API key](https://platform.openai.com/api-keys) (default)
+  - [Ollama](https://ollama.ai/) running locally
+  - [Llama.cpp](https://github.com/ggerganov/llama.cpp) server
+  - [vLLM](https://github.com/vllm-project/vllm) server
+  - [OpenRouter](https://openrouter.ai/) account
+  - Any OpenAI-compatible API endpoint
 - [GitHub personal access token](https://github.com/settings/tokens) (for PR features)
   - Needs `repo` scope for creating PRs
 
