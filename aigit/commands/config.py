@@ -8,6 +8,8 @@ from aigit import config as cfg
 
 console = Console()
 
+SUPPORTED_PROVIDERS = ["openai", "ollama", "llamacpp", "vllm", "openrouter", "custom"]
+
 
 def config_command(
     action: str = typer.Argument(..., help="Action: set, get, or list"),
@@ -23,9 +25,30 @@ def config_command(
             console.print("[red]Usage:[/red] aigit config set <key> <value>")
             raise typer.Exit(1)
 
+        # Validate provider
+        if key == "provider":
+            if value not in SUPPORTED_PROVIDERS:
+                console.print(f"[red]Error:[/red] Invalid provider '{value}'")
+                console.print(f"[yellow]Supported providers:[/yellow] {', '.join(SUPPORTED_PROVIDERS)}")
+                raise typer.Exit(1)
+
         try:
             cfg.set_config(key, value)
             console.print(f"[green]✓[/green] Set {key} = {value}")
+            
+            # Display helpful messages for provider configuration
+            if key == "provider":
+                provider_info = cfg.PROVIDER_DEFAULTS.get(value, {})
+                if provider_info.get("base_url"):
+                    console.print(f"[dim]Default base URL: {provider_info['base_url']}[/dim]")
+                if not provider_info.get("requires_api_key", True):
+                    console.print("[dim]API key not required for this provider[/dim]")
+                else:
+                    console.print("[yellow]⚠[/yellow]  Don't forget to set your API key: aigit config set openai_api_key <key>")
+                    
+            if key == "base_url" and value:
+                console.print("[dim]Custom base URL will override provider default[/dim]")
+                
         except Exception as e:
             console.print(f"[red]Error:[/red] {e}")
             raise typer.Exit(1)
