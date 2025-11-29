@@ -98,16 +98,16 @@ def set_config(key: str, value: Any) -> None:
 def get_openai_api_key() -> str:
     """Get OpenAI API key from config or environment."""
     provider = get_config("provider") or "openai"
-    
+
     # Check if provider requires API key
     provider_info = PROVIDER_DEFAULTS.get(provider, PROVIDER_DEFAULTS["custom"])
-    
+
     key = os.environ.get("OPENAI_API_KEY") or get_config("openai_api_key")
-    
+
     # If provider doesn't require API key, return a dummy key
     if not provider_info["requires_api_key"]:
         return key or "not-needed"
-    
+
     if not key:
         raise ValueError(
             "OpenAI API key not found. Set it with:\n"
@@ -121,23 +121,23 @@ def get_provider_config() -> dict[str, Any]:
     """Get provider configuration including base_url and api_key."""
     provider = get_config("provider") or "openai"
     custom_base_url = get_config("base_url")
-    
+
     # Get provider defaults
     provider_info = PROVIDER_DEFAULTS.get(provider, PROVIDER_DEFAULTS["custom"])
-    
+
     # Custom base_url overrides provider default
     base_url = custom_base_url if custom_base_url else provider_info["base_url"]
-    
+
     # Get API key
     api_key = get_openai_api_key()
-    
+
     config = {
         "provider": provider,
         "api_key": api_key,
         "base_url": base_url,
         "requires_api_key": provider_info["requires_api_key"],
     }
-    
+
     return config
 
 

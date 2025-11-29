@@ -8,13 +8,13 @@ from aigit.config import get_provider_config, get_config
 def get_client() -> OpenAI:
     """Get OpenAI client."""
     provider_config = get_provider_config()
-    
+
     # Initialize client with base_url if provided
     client_args = {"api_key": provider_config["api_key"]}
-    
+
     if provider_config["base_url"]:
         client_args["base_url"] = provider_config["base_url"]
-    
+
     return OpenAI(**client_args)
 
 
