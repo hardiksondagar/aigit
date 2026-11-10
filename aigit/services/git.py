@@ -156,14 +156,18 @@ def parse_github_url(url: str) -> tuple[str, str] | None:
 
     # Handle SSH URLs: git@github.com:owner/repo.git
     if url.startswith("git@github.com:"):
-        path = url.replace("git@github.com:", "").replace(".git", "")
+        path = url[len("git@github.com:"):]
+        if path.endswith(".git"):
+            path = path[: -len(".git")]
         parts = path.split("/")
         if len(parts) == 2:
             return parts[0], parts[1]
 
     # Handle HTTPS URLs: https://github.com/owner/repo.git
     if "github.com" in url:
-        path = url.split("github.com/")[-1].replace(".git", "")
+        path = url.split("github.com/")[-1]
+        if path.endswith(".git"):
+            path = path[: -len(".git")]
         parts = path.split("/")
         if len(parts) >= 2:
             return parts[0], parts[1]
